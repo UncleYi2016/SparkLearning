@@ -16,6 +16,7 @@ import org.apache.spark.api.java.JavaPairRDD;
 import org.apache.spark.api.java.JavaRDD;
 import org.apache.spark.api.java.JavaSparkContext;
 
+import com.SparkLearning.Controller.LoadHBaseData;
 import com.SparkLearning.Controller.WordCount;
 import com.SparkLearning.Model.WordsDAO;
 
@@ -25,12 +26,15 @@ public class test {
 
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
-		List<WordsDAO> result = WordCount.countByUri("C://Users/vm/Desktop/hos_illnames.txt"); //读取的文件
-		File file = new File("C://Users/vm/Desktop/hos_illnames+_result.txt");	//输出排序后的结果
-		FileWriter out = new FileWriter(file);
-		for(WordsDAO w : result){
-			out.write(w.getContent() + "---" + w.getCount() + "\r\n");
-		}
+//		List<WordsDAO> result = WordCount.countByUri("C://Users/vm/Desktop/wc.txt"); //读取的文件
+//		File file = new File("C://Users/vm/Desktop/wc_result.txt");	//输出排序后的结果
+//		FileWriter out = new FileWriter(file);
+//		for(WordsDAO w : result){
+//			out.write(w.getContent() + "---" + w.getCount() + "\r\n");
+//		}
+//		out.close();
+		
+		LoadHBaseData.LoadPostInfo();
 	}
 	
 
