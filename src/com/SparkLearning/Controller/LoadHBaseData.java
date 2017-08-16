@@ -36,11 +36,16 @@ public class LoadHBaseData {
 		
 		try {
 			ResultScanner rs = pool.getTable("post_info").getScanner(new Scan());
+			int count = 0;
 			for (Result r : rs) {
 				if(r != null){
-					String user_json = new String(r.getValue(Bytes.toBytes("post_main"), Bytes.toBytes("mp_detail")));
-					System.out.println(user_json);
+					String data = new String(r.getValue(Bytes.toBytes("post_main"), Bytes.toBytes("mp_detail")));
+					System.out.println(data);
 				}
+				if(count == 10){
+					break;
+				}
+				count++;
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
