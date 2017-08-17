@@ -1,6 +1,8 @@
 package com.SparkLearning.Controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
@@ -18,7 +20,8 @@ public class LoadHBaseData {
 	public HTable table;
 	public static HBaseAdmin admin;
 	
-	public static void LoadPostInfo(){
+	public static List<String> LoadPostInfo(int loadNum){
+		List<String> result = new ArrayList<String>();
 		config = HBaseConfiguration.create();
 		config.set("hbase.master", "hadoop5.site:16020");//代码使用16020，但是仍然需要配置16000
 		config.set("hbase.zookeeper.quorum", "hadoop3.site");
@@ -36,16 +39,23 @@ public class LoadHBaseData {
 		
 		try {
 			ResultScanner rs = pool.getTable("post_info").getScanner(new Scan());
+			int count = 0;
 			for (Result r : rs) {
+				System.out.println("Loading No. " + (count+1));
 				if(r != null){
-					String user_json = new String(r.getValue(Bytes.toBytes("post_main"), Bytes.toBytes("mp_detail")));
-					System.out.println(user_json);
+					String data = new String(r.getValue(Bytes.toBytes("post_main"), Bytes.toBytes("mp_detail")));
+					result.add(data);
 				}
+				if(count == loadNum){
+					break;
+				}
+				count++;
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return result;
 	}
 	
 }

@@ -59,7 +59,7 @@ public class CustomizeAnalyzer {
 		List<String> wordList = new ArrayList<String>();
         for(String s : datas){
         	List<String> words = workCutsomAnalyzer(s);
-        	wordList.add(s);
+        	wordList.addAll(words);
         }
 		return wordList;
 	}
