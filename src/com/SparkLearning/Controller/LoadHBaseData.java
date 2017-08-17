@@ -20,7 +20,7 @@ public class LoadHBaseData {
 	public HTable table;
 	public static HBaseAdmin admin;
 	
-	public static List<String> LoadPostInfo(){
+	public static List<String> LoadPostInfo(int loadNum){
 		List<String> result = new ArrayList<String>();
 		config = HBaseConfiguration.create();
 		config.set("hbase.master", "hadoop5.site:16020");//代码使用16020，但是仍然需要配置16000
@@ -41,11 +41,12 @@ public class LoadHBaseData {
 			ResultScanner rs = pool.getTable("post_info").getScanner(new Scan());
 			int count = 0;
 			for (Result r : rs) {
+				System.out.println("Loading No. " + (count+1));
 				if(r != null){
 					String data = new String(r.getValue(Bytes.toBytes("post_main"), Bytes.toBytes("mp_detail")));
 					result.add(data);
 				}
-				if(count == 300){
+				if(count == loadNum){
 					break;
 				}
 				count++;
