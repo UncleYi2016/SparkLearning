@@ -19,9 +19,9 @@ import org.lionsoul.jcseg.tokenizer.core.JcsegTaskConfig;
 import org.lionsoul.jcseg.tokenizer.core.SegmentFactory;
 
 public class CustomizeAnalyzer {
-	public static HashMap<String , Integer> addCustomizeAnalyzer(List<String> datas){
+	
+	public static HashMap<String , Integer> wordCountCustomizeAnalyzer(List<String> datas){
 		HashMap<String , Integer> wordList = new HashMap<String, Integer>();
-
         for(String s : datas){
         	List<String> words = workCutsomAnalyzer(s);
         	for(String w : words){
@@ -30,12 +30,21 @@ public class CustomizeAnalyzer {
         			wordList.put(w,temp);
         		}else{
         			wordList.put(w, 1);
-        		}
+        		}	
         	}
         }
-
 		return wordList;
 	}
+	
+	public static List<String> addCustomizeAnalyzer(List<String> datas){
+		List<String> wordList = new ArrayList<String>();
+        for(String s : datas){
+        	List<String> words = workCutsomAnalyzer(s);
+        	wordList.add(s);
+        }
+		return wordList;
+	}
+	
 	public static List<String> workCutsomAnalyzer(String s ){
 		List<String> words = new ArrayList<String>();
 		

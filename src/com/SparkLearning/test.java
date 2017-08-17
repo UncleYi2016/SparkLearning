@@ -35,8 +35,8 @@ public class test {
 	public static void main(String[] args) throws IOException {
 		// TODO Auto-generated method stub
 //		List<WordsDAO> result = WordCount.countByUri("C://Users/vm/Desktop/wc.txt"); //读取的文件
-//		File file = new File("C://Users/vm/Desktop/wc_result.txt");	//输出排序后的结果
-//		FileWriter out = new FileWriter(file);
+		File file = new File("C://Users/vm/Desktop/wc_result.txt");	//输出排序后的结果
+		FileWriter out = new FileWriter(file);
 //		for(WordsDAO w : result){
 //			out.write(w.getContent() + "---" + w.getCount() + "\r\n");
 //		}
@@ -45,20 +45,12 @@ public class test {
 //		LoadHBaseData.LoadPostInfo();
 		String words = "期待此吧有校友有哪些是剑阁的？衡水哪里有租赁或者卖卡通形象的衣服的，就是那种充满了气人站在里面的那种，哪里有大头娃娃啊，带在头上 卡通衣服兔子最好，没有 的话别的也可以，全东莞最有影响力教育机构全能找到，家教信息免费发布。东莞培训通www.dgpxt.com 哈，标题要亮、亮、亮… 明天就情人节了，祝天下有情人终成眷属…有句话是这样说的 不爱的爱情永远不会变坏 我们调情 我们暧昧 但是我们不爱第一:什么时候开学?!要准确了!!!! 第二:怎么查成绩!这都好久!";
 		List<String> testList = new ArrayList<String>();
-		testList.add(words);
-		testList.add(words);
-		testList.add(words);
-		testList.add(words);
-		testList.add(words);
-		testList.add(words);
-		testList.add(words);
-		testList.add(words);
-		testList.add(words);
-		testList.add(words);
-		HashMap<String,Integer> testMap = CustomizeAnalyzer.addCustomizeAnalyzer(testList);
-		for(String key : testMap.keySet()){
-			System.out.println(key + "..." +  testMap.get(key));
+		List<String> testMap = CustomizeAnalyzer.addCustomizeAnalyzer(testList);
+		for(String key : testMap){
+			out.write(key);
+//			System.out.println(key);
 		}
+		out.close();
 	}
 
 	
