@@ -3,8 +3,11 @@ package com.SparkLearning.TextSegmentation;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.TokenStream;
@@ -18,10 +21,15 @@ import org.lionsoul.jcseg.tokenizer.core.JcsegException;
 import org.lionsoul.jcseg.tokenizer.core.JcsegTaskConfig;
 import org.lionsoul.jcseg.tokenizer.core.SegmentFactory;
 
+import com.SparkLearning.Comparator.AnalyzerDescComparators;
+import com.SparkLearning.Model.Words;
+import com.SparkLearning.Model.WordsDAO;
+
 public class CustomizeAnalyzer {
 	
-	public static HashMap<String , Integer> wordCountCustomizeAnalyzer(List<String> datas){
+	public static List<Words> wordCountCustomizeAnalyzer(List<String> datas){
 		HashMap<String , Integer> wordList = new HashMap<String, Integer>();
+		List<Words> result = new ArrayList<Words>();
         for(String s : datas){
         	List<String> words = workCutsomAnalyzer(s);
         	for(String w : words){
@@ -33,7 +41,18 @@ public class CustomizeAnalyzer {
         		}	
         	}
         }
-		return wordList;
+        result = sortCustomizeAnalyzer(wordList);
+		return result;
+	}
+	
+	public static List<Words> sortCustomizeAnalyzer(HashMap<String, Integer> wordList){
+		List<Words> sortList = new ArrayList<Words>() ;
+		for(String key : wordList.keySet()){
+			Words word = new Words(key,wordList.get(key));
+			sortList.add(word);
+		}
+		sortList.sort(new AnalyzerDescComparators());
+		return sortList;
 	}
 	
 	public static List<String> addCustomizeAnalyzer(List<String> datas){
